@@ -1,6 +1,5 @@
 package org.zach.simple;
 
-import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
@@ -17,7 +16,7 @@ public class SyncProducer {
 
     public static final String PRODUCT_GROUP = "zach";
 
-    private static final String NAMESRV_ADDR="49.235.226.61:9876";
+    private static final String NAMESRV_ADDR = "49.235.226.61:9876";
 
     public static void main(String[] args) throws Exception {
         // 1、创建默认生产者，传入生产者组，默认是'DEFAULT_PRODUCER'
