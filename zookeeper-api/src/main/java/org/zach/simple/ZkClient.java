@@ -6,6 +6,7 @@ import org.apache.zookeeper.data.Stat;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author 钟鹏 Zach
@@ -17,6 +18,8 @@ public class ZkClient {
     private static final String ZK_ADDRESS = "49.235.226.61";
 
     private static final int SESSION_TIME = 5000;
+
+    private static final AtomicInteger version = new AtomicInteger(0);
 
     private static ZooKeeper zooKeeper;
 
@@ -70,5 +73,9 @@ public class ZkClient {
     public static String getPathData(String path) throws KeeperException, InterruptedException {
         byte[] data = zooKeeper.getData(path, false, new Stat());
         return new String(data,StandardCharsets.UTF_8);
+    }
+
+    public static void setPathData(String path, String data) throws KeeperException, InterruptedException {
+        zooKeeper.setData(path, data.getBytes(StandardCharsets.UTF_8),version.getAndIncrement());
     }
 }

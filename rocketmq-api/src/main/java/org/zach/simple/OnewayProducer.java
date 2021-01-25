@@ -1,34 +1,29 @@
 package org.zach.simple;
 
+import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
-import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.remoting.common.RemotingHelper;
+import org.apache.rocketmq.remoting.exception.RemotingException;
 
+import java.io.UnsupportedEncodingException;
 
 /**
  * @author 钟鹏 Zach
  * @version 1.0
- * @date 2021/1/22 10:40 上午
- * @desc 同步发送消息，简单案例
+ * @date 2021/1/25 4:19 下午
  */
-public class SyncProducer {
-
-    public static final String PRODUCT_GROUP = "zach";
+public class OnewayProducer {
 
     private static final String NAMESRV_ADDR = "49.235.226.61:9876";
 
-    public static void main(String[] args) throws Exception {
-        // 1、创建默认生产者，传入生产者组，默认是'DEFAULT_PRODUCER'
-        DefaultMQProducer producer = new DefaultMQProducer(PRODUCT_GROUP);
-        // 2、设置namesrv地址（集群都填上）
+    public static void main(String[] args) throws UnsupportedEncodingException, RemotingException, MQClientException, InterruptedException {
+        //Instantiate with a producer group name.
+        DefaultMQProducer producer = new DefaultMQProducer("please_rename_unique_group_name");
+        // Specify name server addresses.
         producer.setNamesrvAddr(NAMESRV_ADDR);
-        // 云服务器响应慢，设置超时时间长一点
-        producer.setSendMsgTimeout(10000);
-        // 3、启动生产者
+        //Launch the instance.
         producer.start();
-
-        // 模拟发送消息
         for (int i = 0; i < 10; i++) {
             //Create a message instance, specifying topic, tag and message body.
             Message msg = new Message("TopicTest" /* Topic */,
@@ -37,12 +32,10 @@ public class SyncProducer {
                             i).getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */
             );
             //Call send message to deliver message to one of brokers.
-            SendResult sendResult = producer.send(msg);
-            System.out.printf("%s%n", sendResult);
+            producer.sendOneway(msg);
         }
-        //Shut down once the producer instance is not longer in use.
+        //Wait for sending to complete
+        Thread.sleep(5000);
         producer.shutdown();
-
     }
-
 }
