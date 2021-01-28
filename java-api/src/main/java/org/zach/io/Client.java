@@ -18,15 +18,21 @@ public class Client {
     private static final int PORT = 9000;
 
     public static void main(String[] args) throws IOException {
-        Socket clientSocket = new Socket(HOST, PORT);
+        Socket clientSocket = null;
         System.out.println("请输入发送的消息：");
         Scanner scanner = new Scanner(System.in);
         for (;;) {
             if (scanner.hasNext()) {
                 String msg = scanner.next();
                 System.out.println(msg);
+                clientSocket = new Socket(HOST, PORT);
                 clientSocket.getOutputStream().write(msg.getBytes());
                 clientSocket.getOutputStream().flush();
+/*                byte[] bytes = new byte[1024];
+                //接收服务端回传的数据
+                clientSocket.getInputStream().read(bytes);
+                System.out.println("接收到服务端的数据：" + new String(bytes));*/
+                clientSocket.close();
             }
         }
     }
