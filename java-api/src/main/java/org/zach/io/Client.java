@@ -32,7 +32,7 @@ public class Client {
                 //接收服务端回传的数据
                 clientSocket.getInputStream().read(bytes);
                 System.out.println("接收到服务端的数据：" + new String(bytes));*/
-                clientSocket.close();
+//                clientSocket.close();
             }
         }
     }
