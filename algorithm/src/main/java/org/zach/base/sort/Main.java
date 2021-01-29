@@ -21,8 +21,8 @@ public class Main {
         Arrays.sort(arrClone);
 
 //        Sortord sortord = new BubbleSortord();
-//        Sortord sortord = new InsertionSortord();
-        Sortord sortord = new SelectionSortord();
+        Sortord sortord = new InsertionSortord();
+//        Sortord sortord = new SelectionSortord();
         sortord.sort(arr);
 
         System.out.println(Arrays.toString(arr));
