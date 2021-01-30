@@ -1,9 +1,6 @@
 package org.zach.base.sort;
 
-import org.zach.base.sort.impl.BubbleSortord;
-import org.zach.base.sort.impl.InsertionSortord;
-import org.zach.base.sort.impl.SelectionSortord;
-import org.zach.base.sort.impl.Sortord;
+import org.zach.base.sort.impl.*;
 import org.zach.base.sort.utils.ArrayUtils;
 
 import java.util.Arrays;
@@ -16,13 +13,14 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-        int[] arr = ArrayUtils.createRandomArray(10, 1000);
+        int[] arr = ArrayUtils.createRandomArray(100, 60000);
         int[] arrClone = Arrays.copyOf(arr, arr.length);
         Arrays.sort(arrClone);
 
 //        Sortord sortord = new BubbleSortord();
-        Sortord sortord = new InsertionSortord();
+//        Sortord sortord = new InsertionSortord();
 //        Sortord sortord = new SelectionSortord();
+        MergeSortord sortord = new MergeSortord();
         sortord.sort(arr);
 
         System.out.println(Arrays.toString(arr));
