@@ -13,14 +13,15 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-        int[] arr = ArrayUtils.createRandomArray(100, 60000);
+        int[] arr = ArrayUtils.createRandomArray(10, 1000);
         int[] arrClone = Arrays.copyOf(arr, arr.length);
         Arrays.sort(arrClone);
 
 //        Sortord sortord = new BubbleSortord();
 //        Sortord sortord = new InsertionSortord();
 //        Sortord sortord = new SelectionSortord();
-        MergeSortord sortord = new MergeSortord();
+//        MergeSortord sortord = new MergeSortord();
+        QuickSortord sortord = new QuickSortord();
         sortord.sort(arr);
 
         System.out.println(Arrays.toString(arr));

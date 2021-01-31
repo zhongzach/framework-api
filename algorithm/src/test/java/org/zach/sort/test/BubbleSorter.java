@@ -16,10 +16,13 @@ public class BubbleSorter {
         for (int i = 0; i < 1000000; i++) {
             int[] arr = ArrayUtils.createRandomArray(10, 100);
             int[] arrClone = Arrays.copyOf(arr, arr.length);
-            merger(arr);
+            quicker(arr);
             Arrays.sort(arrClone);
             if (!Arrays.equals(arr, arrClone)) {
+                System.out.println(Arrays.toString(arr));
+                System.out.println(Arrays.toString(arrClone));
                 System.out.println("程序有误");
+                break;
             }
         }
         System.out.println("程序正常");
@@ -102,7 +105,7 @@ public class BubbleSorter {
         }
 
         for (int j = 0; j < help.length; j++) {
-            arr[L+j] = help[j];
+            arr[L + j] = help[j];
         }
     }
 
@@ -117,6 +120,40 @@ public class BubbleSorter {
         int tmp = arr[a];
         arr[a] = arr[b];
         arr[b] = tmp;
+    }
+
+    public static void quicker(int[] arr) {
+        if (arr == null || arr.length < 2) {
+            return;
+        }
+        quick(arr, 0 ,arr.length - 1);
+    }
+
+    public static void quick(int arr[], int L, int R) {
+        if (L < R) {
+            swap(arr, L + (int) Math.random() * (R - L + 1), R);
+            int[] p = partition(arr, L, R);
+            quick(arr, L , p[0] - 1);
+            quick(arr,p[1] + 1 , R);
+        }
+    }
+
+    public static int[] partition(int[] arr, int L, int R) {
+        int less = L - 1;
+        int more = R;
+
+        while (L < more) {
+            if (arr[L] < arr[R]) {
+                swap2(arr, L++, ++less);
+            } else if (arr[L] > arr[R]) {
+                swap2(arr, --more, L);
+            } else {
+                L++;
+            }
+        }
+        swap2(arr, more , R);
+        return new int[]{less + 1,more};
+
     }
 
 }
