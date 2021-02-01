@@ -53,4 +53,9 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<String> {
             }
         });
     }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        ctx.channel().close();
+    }
 }
