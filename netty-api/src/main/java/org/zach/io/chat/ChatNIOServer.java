@@ -32,17 +32,17 @@ public class ChatNIOServer {
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
         System.out.println("聊天室启动成功...");
 
-        for (;;) {
+        for (; ; ) {
             selector.select(); // 等待响应事件
             Set<SelectionKey> selectionKeys = selector.selectedKeys();
             Iterator<SelectionKey> iterator = selectionKeys.iterator();
-            while(iterator.hasNext()) {
+            while (iterator.hasNext()) {
                 SelectionKey selectionKey = iterator.next();
                 if (selectionKey.isAcceptable()) {
-                    ServerSocketChannel channel = (ServerSocketChannel)selectionKey.channel();
+                    ServerSocketChannel channel = (ServerSocketChannel) selectionKey.channel();
                     SocketChannel socketChannel = channel.accept();
                     socketChannel.configureBlocking(false);
-                    socketChannel.register(selector,SelectionKey.OP_READ);
+                    socketChannel.register(selector, SelectionKey.OP_READ);
                     // 通知所有客户端，有新客户端上线
                     channels.forEach(ch -> {
                         try {
@@ -57,8 +57,8 @@ public class ChatNIOServer {
                     // 通知完毕后将当前连接的客户端加入到集合中
                     channels.add(socketChannel);
                     System.out.println("当前在线人数：" + channels.size());
-                } else if (selectionKey.isReadable()){
-                    SocketChannel channel = (SocketChannel)selectionKey.channel();
+                } else if (selectionKey.isReadable()) {
+                    SocketChannel channel = (SocketChannel) selectionKey.channel();
                     ByteBuffer byteBuffer = ByteBuffer.allocate(128);
                     int len = channel.read(byteBuffer);
                     if (len > 0) {
@@ -80,7 +80,7 @@ public class ChatNIOServer {
                                 e.printStackTrace();
                             }
                         });
-                    } else if (len == -1 ) {
+                    } else if (len == -1) {
                         System.out.println("客户端断开连接...");
                         channels.remove(channel);
                         channel.close();
@@ -91,7 +91,6 @@ public class ChatNIOServer {
 
 
         }
-
 
 
     }
