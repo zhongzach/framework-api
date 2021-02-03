@@ -21,7 +21,8 @@ public class Main {
 //        Sortord sortord = new InsertionSortord();
 //        Sortord sortord = new SelectionSortord();
 //        MergeSortord sortord = new MergeSortord();
-        QuickSortord sortord = new QuickSortord();
+//        QuickSortord sortord = new QuickSortord();
+        HeapSortord sortord = new HeapSortord();
         sortord.sort(arr);
 
         System.out.println(Arrays.toString(arr));
