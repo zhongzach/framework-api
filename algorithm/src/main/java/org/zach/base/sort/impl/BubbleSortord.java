@@ -4,7 +4,7 @@ package org.zach.base.sort.impl;
  * @author 钟鹏 Zach
  * @version 1.0
  * @date 2021/1/29 9:05 上午
- * @desc 冒泡排序 每一次遍历都两两比对找最大值
+ * @desc 冒泡排序 每一次遍历都两两比对找最大值xx
  */
 public class BubbleSortord extends Sortord {
 
